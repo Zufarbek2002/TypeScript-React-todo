@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { TodoCompProps } from "../types/types";
 import { useEffect } from "react";
 import axios from "axios";
 import {
@@ -12,7 +13,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const TodoComp = ({ filtered, setFiltered, data, setData }) => {
+const TodoComp = ({ filtered, setFiltered, data, setData }: TodoCompProps) => {
   const handleDelete = async (todoId: number) => {
     if (confirm("Are you sure delete")) {
       setFiltered(filtered.filter((todo) => todo.id !== todoId));
@@ -20,7 +21,10 @@ const TodoComp = ({ filtered, setFiltered, data, setData }) => {
     }
   };
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>, todoId: number) => {
+  const handleChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    todoId: number
+  ) => {
     const bool = e.target.checked;
     try {
       const res = await axios.patch(`http://localhost:3000/todos/${todoId}`, {
@@ -46,7 +50,6 @@ const TodoComp = ({ filtered, setFiltered, data, setData }) => {
   useEffect(() => {
     setFiltered(data.todo);
   }, [data.todo]);
-
   return (
     <div>
       <Container>

@@ -37,7 +37,6 @@ const App = () => {
     fetchData();
   }, []);
 
-
   return (
     <div id="search_comp">
       <Box

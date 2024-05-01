@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const App = () => {
-  const [filtered, setFiltered] = useState([]);
+  const [filtered, setFiltered] = useState({
+    todo: [],
+  });
   const [data, setData] = useState({
     loading: false,
     todo: [],
@@ -51,8 +53,13 @@ const App = () => {
           minHeight: "100vh",
         }}
       >
-        <SearchComp setFiltered={setFiltered} data={data}/>
-        <TodoComp filtered={filtered} setFiltered={setFiltered} setData={setData} data={data}/>
+        <SearchComp setFiltered={setFiltered} data={data} />
+        <TodoComp
+          filtered={filtered}
+          setFiltered={setFiltered}
+          setData={setData}
+          data={data}
+        />
       </Box>
     </div>
   );

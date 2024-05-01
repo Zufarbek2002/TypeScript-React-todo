@@ -4,17 +4,25 @@ export type Todo = {
     title: string;
     completed: boolean;
 }
-export type TodoCompProps = {
-    data: {
-        loading: boolean;
+
+export type SetFiltered = React.Dispatch<
+    React.SetStateAction<{
         todo: Todo[]
-        error: string;
+    }>
+>;
+
+export type Data = {
+    loading: boolean;
+    todo: Todo[]
+    error: string;
+};
+
+export type TodoCompProps = {
+    filtered: {
+        todo: Todo[]
     };
-    setFiltered: React.Dispatch<
-        React.SetStateAction<{
-            todo: Todo[]
-        }>
-    >;
+    data: Data;
+    setFiltered: SetFiltered;
     setData: React.Dispatch<
         React.SetStateAction<{
             loading: boolean;

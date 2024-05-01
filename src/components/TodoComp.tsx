@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { TodoCompProps } from "../types/types";
+import { TodoCompProps } from "../types/TodoComp.types";
 import { useEffect } from "react";
 import axios from "axios";
 import {
@@ -14,16 +14,18 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const TodoComp = ({ filtered, setFiltered, data, setData }: TodoCompProps) => {
-  const handleDelete = async (todoId: number) => {
+  const handleDelete = async (todoId: string) => {
     if (confirm("Are you sure delete")) {
-      setFiltered(filtered.filter((todo) => todo.id !== todoId));
+      setFiltered({
+        todo: filtered.todo.filter((todo) => todo.id !== todoId),
+      });
       await axios.delete(`http://localhost:3000/todos/${todoId}`);
     }
   };
 
   const handleChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    todoId: number
+    todoId: string
   ) => {
     const bool = e.target.checked;
     try {
@@ -48,7 +50,7 @@ const TodoComp = ({ filtered, setFiltered, data, setData }: TodoCompProps) => {
   };
 
   useEffect(() => {
-    setFiltered(data.todo);
+    setFiltered({ todo: data.todo });
   }, [data.todo]);
   return (
     <div>
@@ -70,8 +72,8 @@ const TodoComp = ({ filtered, setFiltered, data, setData }: TodoCompProps) => {
         <Box mt={4}>
           {data.loading && <h2>Loading...</h2>}
           {data.error && <h2>{data.error}</h2>}
-          {filtered.length > 0 &&
-            filtered.map((data, i: number) => (
+          {filtered.todo.length > 0 &&
+            filtered.todo.map((data, i: number) => (
               <Card
                 key={data.id}
                 sx={{

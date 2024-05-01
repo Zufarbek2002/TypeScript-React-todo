@@ -12,14 +12,15 @@ import {
   Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { SearchCompProps } from "../types/SearchComp.types";
 
-const SearchComp = ({ setFiltered, data }) => {
+const SearchComp = ({ setFiltered, data }: SearchCompProps) => {
   const [todo, setTodo] = useState({
     title: "",
     completed: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const group = e.target.value;
     let filteredValue;
     if (group == "All") {
@@ -27,7 +28,7 @@ const SearchComp = ({ setFiltered, data }) => {
     } else {
       filteredValue = data.todo.filter((data) => `${data.completed}` == group);
     }
-    setFiltered(filteredValue);
+    setFiltered({ todo: filteredValue });
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,9 +46,11 @@ const SearchComp = ({ setFiltered, data }) => {
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value.toLowerCase();
-    setFiltered(
-      data.todo.filter((element) => element.title.toLowerCase().includes(text))
-    );
+    setFiltered({
+      todo: data.todo.filter((element) =>
+        element.title.toLowerCase().includes(text)
+      ),
+    });
   };
 
   return (
